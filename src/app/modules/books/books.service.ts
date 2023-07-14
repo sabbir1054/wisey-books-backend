@@ -11,7 +11,7 @@ const getAllBooksFromBD = async (
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IBook[]>> => {
   // Extract searchTerm to implement search query
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, publicationYear, ...filtersData } = filters;
 
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
@@ -30,11 +30,17 @@ const getAllBooksFromBD = async (
     });
   }
 
+  if (publicationYear) {
+    andConditions.push({
+      publicationDate: { $regex: `.*${publicationYear}.*` },
+    });
+  }
+
   // Filters needs $and to fullfill all the conditions
   if (Object.keys(filtersData).length) {
     andConditions.push({
       $and: Object.entries(filtersData).map(([field, value]) => ({
-        [field]: value,
+        [field]: { $regex: new RegExp(value, 'i') },
       })),
     });
   }
