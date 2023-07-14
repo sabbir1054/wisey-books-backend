@@ -92,9 +92,19 @@ const updateBookToDB = async (
   return result;
 };
 
+const deleteBookFromDB = async (id: string): Promise<IBook | null> => {
+  const isExist = await Book.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not Found');
+  }
+  const result = await Book.findByIdAndDelete(id);
+  return result;
+};
+
 export const BookService = {
   getAllBooksFromBD,
   getSingleBookFromDB,
   addBookToDB,
   updateBookToDB,
+  deleteBookFromDB,
 };
