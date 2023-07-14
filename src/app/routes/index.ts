@@ -1,12 +1,15 @@
+import express from 'express';
+import { BookRoutes } from '../modules/books/books.route';
 
-// import express from 'express';
+const router = express.Router();
 
-// const router = express.Router();
+const modulesRoute = [
+  {
+    path: '/books',
+    route: BookRoutes,
+  },
+];
 
-// const modulesRoute = [
+modulesRoute.map(route => router.use(route.path, route.route));
 
-// ];
-
-// // modulesRoute.map(route => router.use(route.path, route.route));
-
-// export default router;
+export default router;
