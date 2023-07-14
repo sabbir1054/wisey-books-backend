@@ -12,5 +12,9 @@ router.post(
   BookController.addBook
 );
 router.get('/', BookController.getAllBooks);
-
+router.patch(
+  '/:id',
+  validateRequest(bookZodValidation.updateBookZodSchema),
+  BookController.updateBook
+);
 export const BookRoutes = router;
