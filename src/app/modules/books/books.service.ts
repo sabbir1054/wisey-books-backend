@@ -6,6 +6,11 @@ import { bookSearchableFields } from './books.constant';
 import { IBook, IBookFilters } from './books.interface';
 import { Book } from './books.model';
 
+const addBookToDB = async (payload: IBook): Promise<IBook | null> => {
+  const result = await Book.create(payload);
+  return result;
+};
+
 const getAllBooksFromBD = async (
   filters: IBookFilters,
   paginationOptions: IPaginationOptions
@@ -77,4 +82,5 @@ const getSingleBookFromDB = async (id: string): Promise<IBook | null> => {
 export const BookService = {
   getAllBooksFromBD,
   getSingleBookFromDB,
+  addBookToDB,
 };
