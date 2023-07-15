@@ -17,8 +17,7 @@ const addBookZodSchema = z.object({
         })
       )
       .optional(),
-    smImgUrl: z.string().optional(),
-    xlImgUrl: z.string().optional(),
+    imgUrl: z.string().optional(),
   }),
 });
 const updateBookZodSchema = z.object({
@@ -36,8 +35,7 @@ const updateBookZodSchema = z.object({
         })
       )
       .optional(),
-    smImgUrl: z.string().optional(),
-    xlImgUrl: z.string().optional(),
+    imgUrl: z.string().optional(),
   }),
 });
 

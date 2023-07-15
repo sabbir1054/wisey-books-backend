@@ -103,10 +103,21 @@ const deleteBookFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield books_model_1.Book.findByIdAndDelete(id);
     return result;
 });
+const addReviewBook = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExist = yield books_model_1.Book.findById(id);
+    if (!isExist) {
+        throw new ApiErrors_1.default(http_status_1.default.NOT_FOUND, 'Book not Found');
+    }
+    const result = yield books_model_1.Book.findByIdAndUpdate(id, {
+        $push: { reviews: payload },
+    }, { new: true });
+    return result;
+});
 exports.BookService = {
     getAllBooksFromBD,
     getSingleBookFromDB,
     addBookToDB,
     updateBookToDB,
     deleteBookFromDB,
+    addReviewBook,
 };

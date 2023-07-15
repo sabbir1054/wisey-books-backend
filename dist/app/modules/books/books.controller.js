@@ -73,10 +73,22 @@ const deleteBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: result,
     });
 }));
+const addReviewBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const review = req.body;
+    const result = yield books_service_1.BookService.addReviewBook(id, review);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Book review updated successfully !',
+        data: result,
+    });
+}));
 exports.BookController = {
     getAllBooks,
     getSingleBook,
     addBook,
     updateBook,
     deleteBook,
+    addReviewBook,
 };

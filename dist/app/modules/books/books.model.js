@@ -7,7 +7,7 @@ const bookSchema = new mongoose_1.Schema({
     author: String,
     genre: String,
     publicationDate: String,
-    reviews: Number,
+    reviews: [Object],
     imgUrl: String,
 }, {
     timestamps: true,
