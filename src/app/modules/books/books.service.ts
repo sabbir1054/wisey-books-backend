@@ -5,7 +5,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import IPaginationOptions from '../../../interfaces/paginations';
 import { bookSearchableFields } from './books.constant';
-import { IBook, IBookFilters } from './books.interface';
+import { IBook, IBookFilters, IComment } from './books.interface';
 import { Book } from './books.model';
 
 const addBookToDB = async (payload: IBook): Promise<IBook | null> => {
@@ -88,7 +88,9 @@ const updateBookToDB = async (
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Book not Found');
   }
+
   const result = await Book.findByIdAndUpdate(id, payload, { new: true });
+
   return result;
 };
 
@@ -101,10 +103,30 @@ const deleteBookFromDB = async (id: string): Promise<IBook | null> => {
   return result;
 };
 
+const addReviewBook = async (
+  id: string,
+  payload: IComment
+): Promise<IBook | null> => {
+  const isExist = await Book.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not Found');
+  }
+  const result = await Book.findByIdAndUpdate(
+    id,
+    {
+      $push: { reviews: payload },
+    },
+    { new: true }
+  );
+
+  return result;
+};
+
 export const BookService = {
   getAllBooksFromBD,
   getSingleBookFromDB,
   addBookToDB,
   updateBookToDB,
   deleteBookFromDB,
+  addReviewBook,
 };

@@ -14,6 +14,11 @@ router.patch(
   validateRequest(bookZodValidation.updateBookZodSchema),
   BookController.updateBook
 );
+router.patch(
+  '/add-review/:id',
+  validateRequest(bookZodValidation.addBookReviewZodSchema),
+  BookController.addReviewBook
+);
 router.get('/:id', BookController.getSingleBook);
 router.delete('/:id', BookController.deleteBook);
 router.get('/', BookController.getAllBooks);

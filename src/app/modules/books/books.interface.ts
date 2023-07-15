@@ -1,12 +1,18 @@
 import { Model } from 'mongoose';
 
+export type IComment = {
+  fullName: string;
+  feedback: string;
+};
+
 export type IBook = {
   title: string;
   author: string;
   genre: string;
   publicationDate: string;
-  reviews: number;
-  imgUrl: string;
+  reviews?: IComment[];
+  smImgUrl?: string;
+  xlImgUrl?: string;
 };
 
 export type BookModel = Model<IBook, Record<string, unknown>>;

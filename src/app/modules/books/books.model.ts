@@ -7,8 +7,9 @@ const bookSchema = new Schema<IBook, BookModel>(
     author: String,
     genre: String,
     publicationDate: String,
-    reviews: Number,
-    imgUrl: String,
+    reviews: [Object],
+    smImgUrl: String,
+    xlImgUrl: String,
   },
   {
     timestamps: true,

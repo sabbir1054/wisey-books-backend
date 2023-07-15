@@ -8,8 +8,17 @@ const addBookZodSchema = z.object({
     publicationDate: z.string({
       required_error: 'publicationDate is required',
     }),
-    reviews: z.number().optional(),
-    imgUrl: z.string().optional(),
+
+    reviews: z
+      .array(
+        z.object({
+          fullName: z.string(),
+          feedback: z.string(),
+        })
+      )
+      .optional(),
+    smImgUrl: z.string().optional(),
+    xlImgUrl: z.string().optional(),
   }),
 });
 const updateBookZodSchema = z.object({
@@ -18,12 +27,29 @@ const updateBookZodSchema = z.object({
     author: z.string().optional(),
     genre: z.string().optional(),
     publicationDate: z.string().optional(),
-    reviews: z.number().optional(),
-    imgUrl: z.string().optional(),
+
+    reviews: z
+      .array(
+        z.object({
+          fullName: z.string(),
+          feedback: z.string(),
+        })
+      )
+      .optional(),
+    smImgUrl: z.string().optional(),
+    xlImgUrl: z.string().optional(),
+  }),
+});
+
+const addBookReviewZodSchema = z.object({
+  body: z.object({
+    fullName: z.string({ required_error: 'Name is required' }),
+    feedback: z.string({ required_error: 'Feedback is required' }),
   }),
 });
 
 export const bookZodValidation = {
   addBookZodSchema,
   updateBookZodSchema,
+  addBookReviewZodSchema,
 };
