@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import { IUser, UserModel } from './users.interface';
 export const UserSchema = new Schema<IUser, UserModel>(
   {
@@ -14,6 +14,18 @@ export const UserSchema = new Schema<IUser, UserModel>(
     password: {
       type: String,
       required: true,
+    },
+    wishlist: {
+      type: [Types.ObjectId],
+      required: false,
+    },
+    finishedBook: {
+      type: [Types.ObjectId],
+      required: false,
+    },
+    readSoon: {
+      type: [Types.ObjectId],
+      required: false,
     },
   },
   {

@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export type IComment = {
   fullName: string;
@@ -12,7 +12,7 @@ export type IBook = {
   publicationDate: string;
   reviews?: IComment[];
   imgUrl?: string;
-  userEmail: string;
+  user: Types.ObjectId;
 };
 
 export type BookModel = Model<IBook, Record<string, unknown>>;

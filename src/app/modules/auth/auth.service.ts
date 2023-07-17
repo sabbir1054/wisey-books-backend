@@ -4,7 +4,7 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiErrors';
 import { User } from '../users/user.model';
 import { IUser } from '../users/users.interface';
-import { ILogin, ILoginResponse } from './auth.interface';
+import { ILogin } from './auth.interface';
 
 const signUpUser = async (payload: IUser): Promise<IUser> => {
   // hashing password
@@ -16,11 +16,10 @@ const signUpUser = async (payload: IUser): Promise<IUser> => {
   return result;
 };
 
-const loginUser = async (payload: ILogin): Promise<ILoginResponse> => {
+const loginUser = async (payload: ILogin) => {
   // check user
-  const isExist = await User.findOne(
-    { email: payload.email },
-    { email: 1, fullName: 1, password: 1 }
+  const isExist = await User.findOne({ email: payload.email }).select(
+    '+password'
   );
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
@@ -32,9 +31,8 @@ const loginUser = async (payload: ILogin): Promise<ILoginResponse> => {
   ) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is not matched');
   }
-  const userData = { email: isExist.email, fullName: isExist.fullName };
 
-  return userData;
+  return isExist;
 };
 
 export const AuthService = {

@@ -26,7 +26,7 @@ const signUpUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // check user
-    const isExist = yield user_model_1.User.findOne({ email: payload.email }, { email: 1, fullName: 1, password: 1 });
+    const isExist = yield user_model_1.User.findOne({ email: payload.email }).select('+password');
     if (!isExist) {
         throw new ApiErrors_1.default(http_status_1.default.NOT_FOUND, 'User does not exist');
     }
@@ -35,8 +35,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         !(yield user_model_1.User.isPasswordMatched(payload.password, isExist.password))) {
         throw new ApiErrors_1.default(http_status_1.default.UNAUTHORIZED, 'Password is not matched');
     }
-    const userData = { email: isExist.email, fullName: isExist.fullName };
-    return userData;
+    return isExist;
 });
 exports.AuthService = {
     signUpUser,

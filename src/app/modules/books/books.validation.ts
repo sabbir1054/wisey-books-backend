@@ -18,7 +18,7 @@ const addBookZodSchema = z.object({
       )
       .optional(),
     imgUrl: z.string().optional(),
-    userEmail: z.string({ required_error: 'User is not verifed' }),
+    user: z.string({ required_error: 'User is not verified' }),
   }),
 });
 const updateBookZodSchema = z.object({

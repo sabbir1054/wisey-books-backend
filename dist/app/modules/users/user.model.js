@@ -28,6 +28,18 @@ exports.UserSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    wishlist: {
+        type: [mongoose_1.Types.ObjectId],
+        required: false,
+    },
+    finishedBook: {
+        type: [mongoose_1.Types.ObjectId],
+        required: false,
+    },
+    readSoon: {
+        type: [mongoose_1.Types.ObjectId],
+        required: false,
+    },
 }, {
     timestamps: true,
     toJSON: {

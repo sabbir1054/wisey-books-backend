@@ -9,7 +9,7 @@ const bookSchema = new mongoose_1.Schema({
     publicationDate: String,
     reviews: [Object],
     imgUrl: String,
-    userEmail: String,
+    user: mongoose_1.Types.ObjectId,
 }, {
     timestamps: true,
     toJSON: {

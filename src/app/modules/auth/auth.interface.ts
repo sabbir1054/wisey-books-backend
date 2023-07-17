@@ -3,7 +3,7 @@ export type ILogin = {
   password: string;
 };
 
-export type ILoginResponse = {
-  fullName?: string;
-  email: string;
-};
+// export type ILoginResponse = {
+//   fullName?: string;
+//   email: string;
+// };

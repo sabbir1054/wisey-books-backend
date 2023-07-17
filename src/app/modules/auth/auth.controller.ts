@@ -21,6 +21,7 @@ const signUpUser = catchAsync(async (req: Request, res: Response) => {
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const loginInfo = req.body;
   const result = await AuthService.loginUser(loginInfo);
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
