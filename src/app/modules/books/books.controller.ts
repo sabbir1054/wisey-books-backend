@@ -93,7 +93,7 @@ const getReviews = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IComment[]>(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Book review updated successfully !',
+    message: 'Book review retrieve successfully !',
     data: result,
   });
 });

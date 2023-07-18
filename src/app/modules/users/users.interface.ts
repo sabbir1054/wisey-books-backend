@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Model, Types } from 'mongoose';
 
+export type IBookId = {
+  bookId: Types.ObjectId;
+  userId: Types.ObjectId;
+};
+
 export type IUser = {
   fullName: string;
   email: string;
