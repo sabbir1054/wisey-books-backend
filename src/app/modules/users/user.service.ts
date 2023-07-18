@@ -4,7 +4,7 @@ import { User } from './user.model';
 import { IBookId } from './users.interface';
 
 const getWishlist = async (id: string) => {
-  const isExist = await User.findById(id);
+  const isExist = await User.findById(id).populate('wishlist');
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
   }
@@ -12,7 +12,7 @@ const getWishlist = async (id: string) => {
   return result;
 };
 const getReadSoon = async (id: string) => {
-  const isExist = await User.findById(id);
+  const isExist = await User.findById(id).populate('readSoon');
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
   }
@@ -20,7 +20,7 @@ const getReadSoon = async (id: string) => {
   return result;
 };
 const getFinished = async (id: string) => {
-  const isExist = await User.findById(id);
+  const isExist = await User.findById(id).populate('finishedBook');
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
   }

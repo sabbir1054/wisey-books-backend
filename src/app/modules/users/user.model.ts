@@ -17,14 +17,17 @@ export const UserSchema = new Schema<IUser, UserModel>(
     },
     wishlist: {
       type: [Types.ObjectId],
+      ref: 'Book',
       required: false,
     },
     finishedBook: {
       type: [Types.ObjectId],
+      ref: 'Book',
       required: false,
     },
     readSoon: {
       type: [Types.ObjectId],
+      ref: 'Book',
       required: false,
     },
   },
