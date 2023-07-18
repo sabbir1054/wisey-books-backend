@@ -3,6 +3,31 @@ import ApiError from '../../../errors/ApiErrors';
 import { User } from './user.model';
 import { IBookId } from './users.interface';
 
+const getWishlist = async (id: string) => {
+  const isExist = await User.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
+  }
+  const result = isExist?.wishlist;
+  return result;
+};
+const getReadSoon = async (id: string) => {
+  const isExist = await User.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
+  }
+  const result = isExist?.readSoon;
+  return result;
+};
+const getFinished = async (id: string) => {
+  const isExist = await User.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not Found');
+  }
+  const result = isExist?.finishedBook;
+  return result;
+};
+
 const addToWishlist = async (payload: IBookId) => {
   const { userId, bookId } = payload;
   const isExist = await User.findById(userId);
@@ -65,4 +90,7 @@ export const UserService = {
   addToWishlist,
   addToReadSoon,
   addToFinished,
+  getFinished,
+  getReadSoon,
+  getWishlist,
 };

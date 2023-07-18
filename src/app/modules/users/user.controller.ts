@@ -4,6 +4,40 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { UserService } from './user.service';
 
+const getWishlist = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await UserService.getWishlist(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Retrieve Wishlist !',
+    data: result,
+  });
+});
+const getReadSoon = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserService.getReadSoon(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Retrieve Read Soon !',
+    data: result,
+  });
+});
+const getFinished = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserService.getFinished(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Retrieve Finished list !',
+    data: result,
+  });
+});
 const addToWishlist = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
 
@@ -16,6 +50,7 @@ const addToWishlist = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
 const addToReadSoon = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
 
@@ -45,4 +80,7 @@ export const UserController = {
   addToWishlist,
   addToReadSoon,
   addToFinished,
+  getFinished,
+  getReadSoon,
+  getWishlist,
 };
