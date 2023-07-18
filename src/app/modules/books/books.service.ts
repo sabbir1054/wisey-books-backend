@@ -108,6 +108,7 @@ const addReviewBook = async (
   payload: IComment
 ): Promise<IBook | null> => {
   const isExist = await Book.findById(id);
+
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Book not Found');
   }
@@ -122,6 +123,16 @@ const addReviewBook = async (
   return result;
 };
 
+const getReviews = async (id: string): Promise<IComment[] | undefined> => {
+  const isExist = await Book.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book not Found');
+  }
+  const result = isExist?.reviews;
+
+  return result;
+};
+
 export const BookService = {
   getAllBooksFromBD,
   getSingleBookFromDB,
@@ -129,4 +140,5 @@ export const BookService = {
   updateBookToDB,
   deleteBookFromDB,
   addReviewBook,
+  getReviews,
 };

@@ -5,7 +5,7 @@ import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
 import { bookFilterableFields } from './books.constant';
-import { IBook } from './books.interface';
+import { IBook, IComment } from './books.interface';
 import { BookService } from './books.service';
 
 const addBook = catchAsync(async (req: Request, res: Response) => {
@@ -85,6 +85,18 @@ const addReviewBook = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getReviews = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await BookService.getReviews(id);
+
+  sendResponse<IComment[]>(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Book review updated successfully !',
+    data: result,
+  });
+});
 export const BookController = {
   getAllBooks,
   getSingleBook,
@@ -92,4 +104,5 @@ export const BookController = {
   updateBook,
   deleteBook,
   addReviewBook,
+  getReviews,
 };
