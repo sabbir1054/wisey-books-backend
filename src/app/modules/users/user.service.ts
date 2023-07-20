@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import { User } from './user.model';
-import { IBookId } from './users.interface';
+import { IBookId, IUser } from './users.interface';
 
 const getWishlist = async (id: string) => {
   const isExist = await User.findById(id).populate('wishlist');
@@ -86,6 +86,11 @@ const addToFinished = async (payload: IBookId) => {
   return result;
 };
 
+const getUser = async (id: string): Promise<IUser | null> => {
+  const result = await User.findById(id);
+  return result;
+};
+
 export const UserService = {
   addToWishlist,
   addToReadSoon,
@@ -93,4 +98,5 @@ export const UserService = {
   getFinished,
   getReadSoon,
   getWishlist,
+  getUser,
 };

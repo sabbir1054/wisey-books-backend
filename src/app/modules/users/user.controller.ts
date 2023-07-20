@@ -3,6 +3,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { UserService } from './user.service';
+import { IUser } from './users.interface';
 
 const getWishlist = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -75,7 +76,17 @@ const addToFinished = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserService.getUser(id);
 
+  sendResponse<IUser>(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User retrieve successfully !',
+    data: result,
+  });
+});
 export const UserController = {
   addToWishlist,
   addToReadSoon,
@@ -83,4 +94,5 @@ export const UserController = {
   getFinished,
   getReadSoon,
   getWishlist,
+  getUser,
 };
